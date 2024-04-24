@@ -32,12 +32,6 @@ class Level(models.Model):
     winter = models.CharField(max_length=2, choices=DIFFICULTY_LEVEL)
 
 
-class Image(models.Model):
-    title = models.CharField(max_length=100)
-    date_added = models.DateTimeField(auto_now_add=True)
-    data = models.ImageField(upload_to="uploads/")
-
-
 class PerevalAdded(models.Model):
 
     STATUS = (
@@ -52,11 +46,15 @@ class PerevalAdded(models.Model):
     other_titles = models.CharField(max_length=100)
     connect = models.CharField(max_length=100)
     add_time = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, choices=STATUS)
+    status = models.CharField(max_length=20, choices=STATUS, default='new')
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     coords = models.ForeignKey(Coord, on_delete=models.CASCADE)
     level = models.ForeignKey(Level, on_delete=models.CASCADE)
-    images = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
 
 
+class Image(models.Model):
+    title = models.CharField(max_length=100)
+    date_added = models.DateTimeField(auto_now_add=True)
+    data = models.ImageField(upload_to="uploads/")
+    pereval = models.ForeignKey(PerevalAdded, on_delete=models.CASCADE, null=True, related_name='images')
 
