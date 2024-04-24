@@ -38,9 +38,9 @@ class PerevalSerializer(WritableNestedModelSerializer):
     user = UserSerializer()
     coords = CoordSerializer()
     level = LevelSerializer()
-    image = ImageSerializer(many=True)
+    images = ImageSerializer(many=True)
     status = serializers.CharField(read_only=True)
 
     class Meta:
         model = PerevalAdded
-        fields = ['id', 'beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'level', 'image', 'status']
+        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'level', 'images', 'status']
