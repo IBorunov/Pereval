@@ -27,9 +27,11 @@ class CoordSerializer(serializers.ModelSerializer):
 
 
 class ImageSerializer(serializers.ModelSerializer):
+    data = serializers.URLField()
+
     class Meta:
         model = Image
-        fields = '__all__'
+        fields = ['title', 'data']
 
 
 class PerevalSerializer(WritableNestedModelSerializer):
@@ -41,4 +43,4 @@ class PerevalSerializer(WritableNestedModelSerializer):
 
     class Meta:
         model = PerevalAdded
-        fields = ['id', 'beautyTitle', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'level', 'image', 'status']
+        fields = ['id', 'beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'level', 'image', 'status']

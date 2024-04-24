@@ -19,9 +19,11 @@ class Coord(models.Model):
 class Level(models.Model):
     DIFFICULTY_LEVEL = (
         ('1A', '1A'),
+        ('1Б', '1Б'),
         ('2A', '2A'),
+        ('2Б', '2Б'),
         ('3A', '3A'),
-        ('4A', '4A')
+        ('3Б', '3Б')
     )
 
     spring = models.CharField(max_length=2, choices=DIFFICULTY_LEVEL)
@@ -39,7 +41,7 @@ class PerevalAdded(models.Model):
         ('rejected', 'Отклонено')
     )
 
-    beautyTitle = models.CharField(max_length=100)
+    beauty_title = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     other_titles = models.CharField(max_length=100)
     connect = models.CharField(max_length=100)
@@ -53,5 +55,5 @@ class PerevalAdded(models.Model):
 class Image(models.Model):
     title = models.CharField(max_length=100)
     date_added = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to="uploads/")
+    data = models.ImageField(upload_to="uploads/")
     pereval = models.ForeignKey(PerevalAdded, on_delete=models.PROTECT)
