@@ -9,10 +9,6 @@ class UserSerializer(UniqueFieldsMixin, serializers.ModelSerializer):
         model = User
         fields = ['id', 'email', 'fam', 'name', 'otc', 'phone']
 
-    def create(self, validated_data):
-        user, created = User.objects.get_or_create(**validated_data)
-        return user
-
 
 class LevelSerializer(serializers.ModelSerializer):
     class Meta:
