@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView, RetrieveAPIView
 from rest_framework.response import Response
 
 from REST.models import PerevalAdded
@@ -39,3 +39,7 @@ class SubmitData(CreateAPIView):
             }
             return Response(response_data, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+class RetrievePerevalByID(RetrieveAPIView):
+    queryset = PerevalAdded.objects.all()
+    serializer_class = PerevalSerializer

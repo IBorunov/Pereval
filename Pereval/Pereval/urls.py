@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from REST.views import SubmitData
+from REST.views import SubmitData, RetrievePerevalByID
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/submitdata', SubmitData.as_view())
+    path('api/v1/submitdata', SubmitData.as_view()),
+    path('api/v1/retrieve/<int:pk>', RetrievePerevalByID.as_view()),
 ]
