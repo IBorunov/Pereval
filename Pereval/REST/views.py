@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView, UpdateAPIView
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from REST.models import PerevalAdded
 from REST.serializers import PerevalSerializer
@@ -55,28 +56,18 @@ class ListPerevalsByUserEmail(ListAPIView):
         return PerevalAdded.objects.filter(user__email=email)
 
 
-class UpdatePereval(UpdateAPIView):
-    queryset = PerevalAdded.objects.filter(status='new')
+class UpdatePereval(APIView):
+    queryset = PerevalAdded.objects.all()
     serializer_class = PerevalSerializer
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        data = request.data
+    def patch(self, request, *args, **kwargs):
+        instance = PerevalAdded.objects.get(pk=kwargs['pk'])
+
         if instance.status != 'new':
-            return JsonResponse({"state": 0, "message": "Невозможно редактировать запись."},
-                                status=400)
+            return Response({"state": 0, "message": "Невозможно редактировать запись."}, status=400)
 
-        protected_fields = ['fam', 'name', 'otc', 'email', 'phone']
-
-
-        #проверяем, есть ли у нас в запросе защищенные поля
-        for field in protected_fields:
-            if field in data:
-                #удаляем эти поля из request.data и обрабатываем запрос уже без этих данных
-                data.pop(field)
-
-        serializer = self.serializer_class(instance, data=data, partial=True)
+        serializer = self.serializer_class(instance, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse({"state": 1}, status=200)
-        return JsonResponse({"state": 0, "message": "Невозможно обновить запись."}, status=400)
+            return Response({"state": 1}, status=200)
+        return Response({"state": 0, "message": serializer.errors}, status=400)
