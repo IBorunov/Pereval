@@ -13,6 +13,7 @@ class SubmitData(CreateAPIView):
     serializer_class = PerevalSerializer
 
     def create(self, request, *args, **kwargs):
+
         serializer = self.serializer_class(data=request.data)
         try:
             serializer.is_valid(raise_exception=True)
@@ -61,8 +62,12 @@ class UpdatePereval(UpdateAPIView):
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
         data = request.data
+        if instance.status != 'new':
+            return JsonResponse({"state": 0, "message": "Невозможно редактировать запись."},
+                                status=400)
 
         protected_fields = ['fam', 'name', 'otc', 'email', 'phone']
+
 
         #проверяем, есть ли у нас в запросе защищенные поля
         for field in protected_fields:
