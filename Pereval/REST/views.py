@@ -49,11 +49,13 @@ class RetrievePerevalByID(RetrieveAPIView):
 
 
 class ListPerevalsByUserEmail(ListAPIView):
+    queryset = PerevalAdded.objects.all()
     serializer_class = PerevalSerializer
+    filterset_fields = ('user__email',)
 
-    def get_queryset(self):
-        email = self.request.query_params.get('user__email', '')
-        return PerevalAdded.objects.filter(user__email=email)
+    # def get_queryset(self):
+    #     email = self.request.query_params.get('user__email', '')
+    #     return PerevalAdded.objects.filter(user__email=email)
 
 
 class UpdatePereval(APIView):

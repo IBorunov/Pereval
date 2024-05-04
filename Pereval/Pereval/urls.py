@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path
 
 from REST.views import SubmitData, RetrievePerevalByID, ListPerevalsByUserEmail, UpdatePereval
+from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,3 +27,5 @@ urlpatterns = [
     path('api/v1/getlist/', ListPerevalsByUserEmail.as_view()),
     path('api/v1/updatedata/<int:pk>/', UpdatePereval.as_view(), name='update_pereval'),
 ]
+
+urlpatterns += doc_urls
