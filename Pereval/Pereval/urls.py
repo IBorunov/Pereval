@@ -22,7 +22,7 @@ from REST.views import SubmitData, RetrievePerevalByID, ListPerevalsByUserEmail,
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/submitdata', SubmitData.as_view()),
-    path('api/v1/retrieve/<int:pk>', RetrievePerevalByID.as_view()),
+    path('api/v1/retrieve/<int:pk>', RetrievePerevalByID.as_view(), name='retrieve_pereval_by_id'),
     path('api/v1/getlist/', ListPerevalsByUserEmail.as_view()),
-    path('api/v1/updatedata/<int:pk>/', UpdatePereval.as_view()),
+    path('api/v1/updatedata/<int:pk>/', UpdatePereval.as_view(), name='update_pereval'),
 ]
