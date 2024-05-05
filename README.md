@@ -95,5 +95,5 @@ message:
    	/redoc/ - schema redoc  
 
   ### Результаты тестов:    
-![screenshot2](https://github.com/IBorunov/Pereval/blob/main/tests.png)
+![screenshot2](https://github.com/IBorunov/Pereval/blob/main/tests.jpg)
 
